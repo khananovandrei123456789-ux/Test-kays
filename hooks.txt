@@ -5,7 +5,7 @@ test.describe('тесты главной страницы', ()=>{      // это
     await page.goto('https://playwright.dev/');
   });
 
-  test('проверка отображения элементов навигации хэдера', async ({ page }) => {    
+  test.skip('проверка отображения элементов навигации хэдера', async ({ page }) => {    // skip- пропускает тест в старте коллекции тестов
     await expect(page.getByRole('link', { name: 'GitHub repository' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Discord server' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Switch between dark and light' })).toBeVisible();
@@ -15,7 +15,7 @@ test.describe('тесты главной страницы', ()=>{      // это
     await expect(page.getByRole('button', { name: 'Node.js' })).toBeVisible();
   });
 
-  test('проверка корректных названий элементов навигации хэдера', async ({ page }) => {          
+  test.fixme('проверка корректных названий элементов навигации хэдера', async ({ page }) => {               //fixme- тоже пропускает тест, но говорит нам о том что его нужно будет в будущем пофиксить
     await expect(page.getByRole('link', { name: 'Playwright logo Playwright' })).toContainText('Playwright');
     await expect(page.getByRole('link', { name: 'Docs' })).toContainText('Docs');
     await expect(page.getByRole('link', { name: 'API' })).toContainText('API');
@@ -23,14 +23,14 @@ test.describe('тесты главной страницы', ()=>{      // это
     await expect(page.getByLabel('Main', { exact: true })).toContainText('Community');
   });
 
-  test('проверка атрибутов href хэддера ', async ({ page }) => {  
-    await expect(page.getByRole('link', { name: 'Playwright logo Playwright' })).toHaveAttribute('href', '/');
+  test.fail('проверка атрибутов href хэддера ', async ({ page }) => {  // .fail- говорит о том что тест сломан ( и если он сломан- то тест пройден, а если с ним все окей- то тест провален )
+    await expect(page.getByRole('link', { name: 'Playwright logo Playwright8888888888' })).toHaveAttribute('href', '/');
     await expect(page.getByRole('link', { name: 'Docs' })).toHaveAttribute('href','/docs/intro');
     await expect(page.getByRole('link', { name: 'API' })).toHaveAttribute('href','/docs/api/class-playwright');
     await expect(page.getByRole('link', { name: 'Community' })).toHaveAttribute('href','/community/welcome');
   });
 
-  test('проверка переключения лайв мода', async ({ page }) => {  
+  test.only('проверка переключения лайв мода', async ({ page }) => {  // .only-испольщуется для того чтобы запустить только 1 тест (или два, три и тд - если перед ними стоят .only) из коллекции
     await page.getByLabel('Switch between dark and light').click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
     await page.getByLabel('Switch between dark and light').click();
