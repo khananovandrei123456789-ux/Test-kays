@@ -60,6 +60,20 @@ const elements : Elements[]=[
     locator:(page: Page): Locator=>page.getByRole('link', { name: 'Discord server' }),
     name:'Diskord link',
   },
+  {  
+    locator:(page: Page): Locator=>page.getByRole('heading', { name: 'Playwright enables reliable' }),
+    name:'Title',
+    text:'Playwright enables reliable end-to-end testing for modern web apps.'
+  },
+  {
+    locator:(page: Page): Locator=>page.getByRole('link', { name: 'Get started' }),
+    name:'Get started button',
+    text:'Get started',
+    attribyte:{
+      type:'href',
+      value:'/docs/intro'
+    }
+  }
 ]
 
 
@@ -103,14 +117,4 @@ test.describe('тесты главной страницы', ()=>{      // это
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   });
 
-  test('проверка заголовка страницы', async ({ page }) => {
-    await expect(page.getByRole('heading', { name: 'Playwright enables reliable' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Playwright enables reliable' })).toContainText('Playwright enables reliable end-to-end testing for modern web apps.');
-  });
-
-  test('проверка кнопки getStarted страницы', async ({ page }) => {
-    await expect.soft(page.getByRole('link', { name: 'Get started' })).toBeVisible();
-    await expect.soft(page.getByRole('banner')).toContainText('Get started');
-    await expect.soft(page.getByRole('link', { name: 'Get started' })).toHaveAttribute('href','/docs/intro');
-  });
 })
