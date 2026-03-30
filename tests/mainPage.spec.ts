@@ -77,6 +77,8 @@ const elements : Elements[]=[
 ]
 
 
+const lightMode=['light', 'dark']
+
 test.describe('тесты главной страницы', ()=>{      // этот хук используется для выполнения идемпотентного действия  в каждой итерации тестового листа (то есть это действие будет вначале каждого теста )
   test.beforeEach( async ({page})=>{
     await page.goto('https://playwright.dev/');
@@ -117,4 +119,13 @@ test.describe('тесты главной страницы', ()=>{      // это
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   });
 
+  lightMode.forEach((value)=>{
+      test(`проверка стилей активного ${value} мода`, async ({page})=>{
+        await page.evaluate((value)=>{
+          document.querySelector('html')?.setAttribute('data-theme', value)
+        }, value)
+      await expect(page).toHaveScreenshot(`pageWith ${value}Mode.png`);
+    })
+  })
+  
 })
